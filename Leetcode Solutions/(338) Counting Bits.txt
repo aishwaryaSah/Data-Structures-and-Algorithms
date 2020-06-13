@@ -1,0 +1,52 @@
+1.
+class Solution {
+public:
+    int highestPowerof2(int n) 
+    { 
+       int p = (int)log2(n); 
+       return (int)pow(2, p);  
+    }
+    
+    vector<int> countBits(int num) {
+        vector<int>dp;
+        int i;
+        for(i=0; i<=num; i++)
+        {
+            if(i==0)
+                dp.push_back(0);
+            else if(i==1)
+                dp.push_back(1);
+            else
+            {
+                int k=highestPowerof2(i);
+                if(k==i)
+                    dp.push_back(1);
+                else
+                    dp.push_back(dp[i-k]+1);
+            }
+        }
+        return dp;
+    }
+};
+
+2.
+class Solution {
+public:
+    vector<int> countBits(int num) 
+    {
+        vector<int>x;
+        int i,d,k;
+        for(i=0; i<=num; i++)
+        {
+            k=0;
+            d=i;
+            while(d)
+            {
+                k=k+(d&1);
+                d=d>>1;
+            }
+            x.push_back(k);
+        }
+        return x;
+    }
+};

@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int arrayPairSum(vector<int>& nums) 
+    {
+        int l,s=0,i;
+        l=nums.size();
+        sort(nums.begin(),nums.end());
+        for(i=0; i<l; i=i+2)
+            s=s+nums[i];
+        return s;
+    }
+};

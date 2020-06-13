@@ -1,0 +1,42 @@
+
+class Solution {
+public:
+    
+    int findCircleNum(vector<vector<int>>& m) 
+    {
+        int r,c,i,j,ii,cc=0;
+        r=m.size();
+        c=m[0].size();
+        int d;
+        queue<int>q;
+        for(i=0; i<r; i++)
+        {
+            for(j=0; j<c; j++)
+            {
+                if(m[i][j]==1)
+                {
+                    cc++;
+                    q.push(i);
+                    while(!q.empty())
+                    {
+                        d=q.front();
+                        q.pop();
+                        for(ii=0; ii<c; ii++)
+                        {
+                            if(m[d][ii]==1)
+                            {
+                                q.push(ii);
+                                m[d][ii]=0;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+        return cc;
+    }
+};

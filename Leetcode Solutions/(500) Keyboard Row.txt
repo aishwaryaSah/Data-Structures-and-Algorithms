@@ -1,0 +1,39 @@
+class Solution {
+public:
+    
+    int check(string ch)
+    {
+        int l,i,flag=0,prevflag=-1;
+        l=ch.size();
+        for(i=0; i<l; i++)
+        {
+            if((ch[i]=='q')||(ch[i]=='w')||(ch[i]=='e')||(ch[i]=='r')||(ch[i]=='t')||(ch[i]=='y')||(ch[i]=='u')||(ch[i]=='i')||(ch[i]=='o')||(ch[i]=='p')||(ch[i]=='Q')||(ch[i]=='W')||(ch[i]=='E')||(ch[i]=='R')||(ch[i]=='T')||(ch[i]=='Y')||(ch[i]=='U')||(ch[i]=='I')||(ch[i]=='O')||(ch[i]=='P'))
+                flag=1;
+            else if((ch[i]=='z')||(ch[i]=='x')||(ch[i]=='c')||(ch[i]=='v')||(ch[i]=='b')||(ch[i]=='n')||(ch[i]=='m')||(ch[i]=='M')||(ch[i]=='N')||(ch[i]=='B')||(ch[i]=='V')||(ch[i]=='C')||(ch[i]=='X')||(ch[i]=='Z'))
+                flag=3;
+            else
+                flag=2;
+            if((prevflag!=-1)&&(flag!=prevflag))
+            {
+                return 0;
+            }
+            prevflag=flag;
+        }
+        return 1;
+    }
+    
+    vector<string> findWords(vector<string>& words) 
+    {
+        vector<string> fin;
+        int ch[26],l,i;
+        l=words.size();
+        for(i=0; i<l; i++)
+        {
+            if(check(words[i]))
+            {
+                fin.push_back(words[i]);
+            }
+        }
+        return fin;
+    }
+};

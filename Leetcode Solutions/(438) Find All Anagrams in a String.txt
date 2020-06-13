@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) 
+    {
+        int ls,lp,i,j,flag;
+        vector<int>a;
+        ls=s.size();
+        lp=p.size();
+        for(i=0; i<(ls-lp+1); i++)
+        {
+            int hash[26]={0};
+            flag=0;
+            for(j=i; j<(i+lp); j++)
+            {
+                hash[s[j]-97]++;
+            }
+            for(j=0; j<lp; j++)
+            {
+                if(hash[p[j]-97]<=0)
+                {
+                    flag=1;
+                    break;
+                }
+                hash[p[j]-97]--;
+            }
+            if(flag==0)
+                a.push_back(i);
+        }
+        return a;
+    }
+};

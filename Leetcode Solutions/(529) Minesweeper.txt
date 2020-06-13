@@ -1,0 +1,56 @@
+class Solution {
+public:
+    vector<vector<char>> updateBoard(vector<vector<char>>& board, vector<int>& click) 
+    {
+        int r,c,x,y,a,b,i,j,cnt=0;
+        r=board.size();
+        if(r==0)
+            return {};
+        c=board[0].size();
+        if(c==0)
+            return {};
+        x=click[0];
+        y=click[1];
+        if(board[x][y]=='M')
+        {
+            board[x][y]='X';
+        }
+        else
+        {
+            for(i=-1; i<2; i++)
+            {
+                for(j=-1; j<2; j++)
+                {
+                    a=x+i;
+                    b=y+j;
+                    if(a<0 || a>=r || b<0 || b>=c)
+                        continue;
+                    if(board[a][b]=='M')
+                        cnt++;
+                }
+            }
+            if(cnt!=0)
+                board[x][y]=cnt+'0';
+            else
+            {
+                board[x][y]='B';
+                for(i=-1; i<2; i++)
+                {
+                    for(j=-1; j<2; j++)
+                    {
+                        a=x+i;
+                        b=y+j;
+                        if(a<0 || a>=r || b<0 || b>=c)
+                            continue;
+                        if(board[a][b]=='E')
+                        {
+                            vector<int>x{a,b};
+                            updateBoard(board,x);
+                        }
+                    }
+                }
+            }
+        }
+        return board;
+    }
+};
