@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& n, int tar) 
+    {
+        int l,i,j;
+        l=n.size();
+        vector<int>a;
+        if(l==1)
+            return a;
+        i=0;
+        j=l-1;
+        while(i<j)
+        {
+            if(tar==(n[i]+n[j]))
+            {
+                a.push_back(i+1);
+                a.push_back(j+1);
+                return a;
+            }
+            else if(tar<(n[i]+n[j]))
+            {
+                j--;
+            }
+            else
+            {
+                i++;
+            }
+        }
+    }
+};

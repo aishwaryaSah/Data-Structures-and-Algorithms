@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        map<char,char>m1;
+        map<char,char>m2;
+        int i,d;
+        for(i=0; i<s.size(); i++)
+        {
+            if(m1.find(s[i])==m1.end())
+            {
+                if(m2.find(t[i])==m2.end())
+                {
+                    m1[s[i]]=t[i];
+                    m2[t[i]]=s[i];
+                }
+                else
+                    return false;
+            }
+            else
+            {
+                d=m1[s[i]];
+                if(d!=t[i])
+                    return false;
+            }
+        }
+        return true;
+    }
+};

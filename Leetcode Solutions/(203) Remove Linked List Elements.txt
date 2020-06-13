@@ -1,0 +1,71 @@
+1.
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        ListNode* x=head;
+        ListNode* pre=x;
+        if(x!=NULL)
+        {
+            while(x!=NULL && x->val==val)
+            {
+                head=head->next;
+                x=x->next;
+            }
+        }
+        pre=head;
+        while(x!=NULL)
+        {
+            if(x->val==val)
+            {
+                pre->next=x->next;
+            }
+            else
+                pre=x;
+            x=x->next;
+        }
+        return head;
+    }
+};
+
+2.
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) 
+    {
+        if(head==NULL)
+            return NULL;
+        while((head!=NULL)&&(head->val==val))
+            head=head->next;
+        if(head==NULL)
+            return NULL;
+        ListNode* ptr=head;
+        ListNode* pre=head;
+        while(ptr!=NULL)
+        {
+            if(ptr->val == val)
+            {
+                pre->next=ptr->next;
+            }
+            else
+                pre=ptr;
+            ptr=ptr->next;
+        }
+        return head;
+    }
+};

@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool isHappy(int n) {
+        int s=0,d,flag=0;
+        do
+        {
+            s=0;
+            while(n>0)
+            {
+                d=n%10;
+                s=s+(d*d);
+                n=n/10;
+            }
+            n=s;
+            if(flag==100)
+                break;
+            if(n<9)
+                flag++;
+        }while(n>1);
+        if(n==1)
+            return true;
+        else
+            return false;
+    }
+};
