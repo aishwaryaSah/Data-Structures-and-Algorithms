@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int minPathSum(vector<vector<int>>& grid) 
+    {
+        int i,j,m;
+        int x=grid.size();
+        if(x==0)
+            return 0;
+        int y=grid[0].size();
+        for(i=0; i<x; i++)
+        {
+            for(j=0; j<y; j++)
+            {
+                m=99999;
+                if(i==0 &&j==0)
+                    continue;
+                if((i-1)>=0)
+                {
+                    m=min(m,grid[i-1][j]);
+                }
+                if((j-1)>=0)
+                {
+                    m=min(m,grid[i][j-1]);
+                }
+                grid[i][j]=m+grid[i][j];
+                cout<<grid[i][j]<<" ";
+            }
+            cout<<endl;
+        }
+        return grid[x-1][y-1];
+    }
+};

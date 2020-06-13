@@ -1,0 +1,89 @@
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+ *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+class Solution {
+public:
+    vector<Interval> insert(vector<Interval>& inter, Interval newI) 
+    {
+        int i,j;
+        int n=inter.size();
+        if((n>0)&&(newI.start<inter[0].start))
+        {
+            if(newI.end<inter[0].start)
+            {
+                inter.insert(inter.begin(),newI);
+                return inter;
+            }
+            inter[0].start=newI.start;
+        }
+        for(i=0; i<inter.size(); i++)
+        {
+            int n=inter.size();
+            if(newI.start>=inter[i].start && newI.start<=inter[i].end)
+            {
+                if(newI.end<=inter[i].end)
+                {
+                    return inter;
+                }
+                else if(newI.end>inter[i].end)
+                {
+                    j=i+1;
+                    while(j<n && newI.end>=inter[j].start)
+                    {
+                        j++;
+                    }
+                    if(newI.end<=inter[j-1].end)
+                    {
+                        inter[i].end=inter[j-1].end;
+                        inter.erase(inter.begin()+i+1,inter.begin()+j);
+                        return inter;
+                    }
+                    else
+                    {
+                        inter[i].end=newI.end;
+                        inter.erase(inter.begin()+i+1,inter.begin()+j);
+                        return inter;
+                    }
+                    break;
+                }
+            }
+            else if((newI.start>inter[i].end)&& ((i+1)<n)&&(newI.start<=inter[i+1].start))
+            {
+                if(newI.end>=inter[i+1].start)
+                {
+                    j=i+1;
+                    while(j<n && newI.end>=inter[j].start)
+                    {
+                        j++;
+                    }
+                    if(newI.end<=inter[j-1].end)
+                    {
+                        inter[j-1].start=newI.start;
+                        inter.erase(inter.begin()+i+1,inter.begin()+j-1);
+                        return inter;
+                    }
+                    else
+                    {
+                        inter.erase(inter.begin()+i+1,inter.begin()+j);
+                        inter.insert(inter.begin()+i+1,newI);
+                        return inter;
+                    }
+                    break;
+                }
+                else
+                {
+                    inter.insert(inter.begin()+i+1,newI);
+                    return inter;
+                }
+            }
+        }
+        inter.push_back(newI);
+        return inter;
+    }
+};

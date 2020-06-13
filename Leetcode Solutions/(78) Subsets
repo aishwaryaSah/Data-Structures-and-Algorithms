@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int> >ans;
+        vector<int>v;
+        vector<int>d1;
+        int i,d2;
+        ans.push_back(v);
+        queue<pair<vector<int>,int>> q;
+        for(i=0; i<nums.size(); i++)
+        {
+            v.push_back(nums[i]);
+            q.push(make_pair(v,i));
+            v.clear();
+        }
+        while(!q.empty())
+        {
+            d1=q.front().first;
+            d2=q.front().second;
+            q.pop();
+            ans.push_back(d1);
+            for(i=d2+1; i<nums.size(); i++)
+            {
+                d1.push_back(nums[i]);
+                q.push(make_pair(d1,i));
+                d1.pop_back();
+            }
+        }
+        return ans;
+    }
+};

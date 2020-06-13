@@ -1,0 +1,45 @@
+class Solution {
+public:
+    
+    set<string>v;
+    
+    void genUtil(int n, string str)
+    {
+        if(n==0)
+            v.insert(str);
+        else
+        {
+            if(str=="")
+            {
+                str="()";
+                n=n-1;
+                if(n==0)
+                {
+                    v.insert(str);
+                    return;
+                }
+            }
+            for(int i=0; i<str.size(); i++)
+            {
+                if(str[i]=='(')
+                {
+                    string d=str.substr(0,i)+'('+')'+str.substr(i);
+                    genUtil(n-1,d);
+                }
+                else if(str[i]==')')
+                {
+                    string d=str.substr(0,i)+'('+')'+str.substr(i);
+                    genUtil(n-1,d);
+                }
+            }
+        }
+    }
+    
+    vector<string> generateParenthesis(int n) {
+        genUtil(n,"");
+        vector<string>ans;
+        for(auto x:v)
+            ans.push_back(x);
+        return ans;
+    }
+};

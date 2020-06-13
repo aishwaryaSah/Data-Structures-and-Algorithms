@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& a, int target) 
+    {
+        vector<int>res;
+        int i,s=0,j,l;
+        l=a.size();
+        for(i=0; i<l; i++)
+        {
+            for(j=i+1; j<l; j++)
+            {
+                s=a[i]+a[j];
+                if(s==target)
+                {
+                    res.push_back(i);
+                    res.push_back(j);
+                    return res;
+                }
+            }
+        }
+        return res;
+    }
+};

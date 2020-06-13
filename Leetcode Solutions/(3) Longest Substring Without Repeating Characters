@@ -1,0 +1,72 @@
+1.
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        map<char,int>st;
+        int i,c=0,max=-1;
+        for(i=0; i<s.size(); i++)
+        {
+            if(st.find(s[i])==st.end())
+            {
+                st[s[i]]=i;
+                c++;
+            }
+            else
+            {
+                if(c>max)
+                    max=c;
+                c=0;
+                i=st[s[i]];
+                st.clear();
+                // st[s[i]]=i
+            }
+        }
+        if(c>max)
+            max=c;
+        return max;
+    }
+};
+
+2.
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) 
+    {
+        int a[256]={0};
+        int l=s.size();
+        int i=0, j=1,m,max=0;
+        if(l<=0)
+            return 0;
+        a[s[i]]++;
+        if(l==1)
+            return 1;
+        while(i<l && j<l && i<j)
+        {
+            if(a[s[j]]==0)
+            {
+                a[s[j]]++;
+                j++;
+            }
+            else
+            {
+                if(max<=(j-i))
+                    max=j-i;
+                m=i;
+                while(m<j)
+                {
+                    if(s[m]==s[j])
+                    {
+                        i=m+1;
+                        j++;
+                        break;
+                    }
+                    a[s[m]]--;
+                    m++;
+                }
+            }
+        }
+                if(max<=(j-i))
+                    max=j-i;
+        return max;
+    }
+};

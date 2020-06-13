@@ -1,0 +1,56 @@
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) 
+    {
+        vector<int>ans;
+        queue<int>q;
+        int d,f=0,n=nums.size(),start=-1,end=-1;
+        if(n>0)
+        q.push(1);
+        // cout<<n;
+        while(!q.empty())
+        {
+            d=q.front();
+            q.pop();
+            if(nums[d-1]>target)
+                break;
+            if(nums[d-1]==target)
+            {
+                // 
+                if(f==0)
+                {
+                    // cout<<"a";
+                    start=d-1;
+                    end=d-1;
+                    f=1;
+                }
+                else
+                {
+                    // cout<<"a";
+                    end=d-1;
+                    f=2;
+                }
+            }
+            else
+            {
+                if(f==2)
+                    break;
+            }
+            // cout<<d;
+            if((d*2) <=n)
+            {
+                // cout<<"b";
+                q.push(d*2);
+            }
+            if(((d*2)+1)<=n)
+                {
+                // cout<<"b";
+                q.push((d*2)+1);
+            }
+                // q.push();
+        }
+        ans.push_back(start);
+        ans.push_back(end);
+        return ans;
+    }
+};

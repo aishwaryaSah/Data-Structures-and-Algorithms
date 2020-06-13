@@ -1,0 +1,42 @@
+class Solution {
+public:
+    string longestPalindrome(string s) 
+    {
+        int n=s.size();
+        if(n==0)
+            return "";
+        int maxLen=1,i,low,high;
+        string max=s.substr(0,1);
+        for(i=1; i<n; i++)
+        {
+            //even
+            low=i-1;
+            high=i;
+            while(low>=0 && high<n && s[low]==s[high])
+            {
+                if((high-low+1)>maxLen)
+                {
+                    maxLen=high-low+1;
+                    max=s.substr(low,maxLen);
+                }
+                low--;
+                high++;
+            }
+            //odd
+            low=i-1;
+            high=i+1;
+            while(low>=0 && high<n && s[low]==s[high])
+            {
+                if((high-low+1)>maxLen)
+                {
+                    maxLen=high-low+1;
+                    max=s.substr(low,maxLen);
+                }
+                low--;
+                high++;
+            }
+        }
+//        cout<<maxLen;
+        return max;
+    }
+};

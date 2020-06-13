@@ -1,0 +1,100 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    
+    ListNode* revlist(ListNode* xx)
+    {
+        struct ListNode* ptr,*pre,*tmp;
+        ptr=xx;
+        pre=NULL;
+        while(ptr!=NULL)
+        {
+            tmp=ptr->next;
+            ptr->next=pre;
+            pre=ptr;
+            ptr=tmp;
+        }
+        return pre;
+    }
+    
+    ListNode* createNode(int x)
+    {
+        struct ListNode* xx=(struct ListNode*)malloc(sizeof(struct ListNode));
+        xx->val=x;
+        xx->next=NULL;
+        return xx;
+    }
+    
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) 
+    {
+        struct ListNode* p1=l1;
+        struct ListNode* p2=l2;
+        int i=0,v=0,carry=0;
+        vector<int> x;
+        while(p1!=NULL && p2!=NULL)
+        {
+            v=p1->val + p2->val+carry;
+            carry=0;
+            while(v>9)
+            {
+                v=v-10;
+                carry++;
+            }
+            x.push_back(v);
+            p1=p1->next;
+            p2=p2->next;
+        }
+        while(p1!=NULL)
+        {
+            v=p1->val + carry;
+            carry=0;
+            while(v>9)
+            {
+                v=v-10;
+                carry++;
+            }
+            x.push_back(v);
+            p1=p1->next;
+        }
+        while(p2!=NULL)
+        {
+            v=p2->val + carry;
+            carry=0;
+            while(v>9)
+            {
+                v=v-10;
+                carry++;
+            }
+            x.push_back(v);
+            p2=p2->next;
+        }
+        if(carry!=0)
+        {
+            x.push_back(carry);
+        }
+        struct ListNode* head;
+        struct ListNode* tmp=NULL;
+        struct ListNode* pre=NULL;
+        for(i=0; i<(x.size()); i++)
+        {
+            tmp=createNode(x[i]);
+            if(pre!=NULL)
+            {
+                pre->next=tmp;
+            }
+            else
+            {
+                head=tmp;
+            }
+            pre=tmp;
+        }
+        return head;
+    }
+};

@@ -1,0 +1,70 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) 
+    {
+        sort(nums.begin(),nums.end());
+        int i,j,k,n=nums.size(),m,flag;
+        vector<int>v1;
+        vector< vector<int>>v;
+        for(i=0; i<n; i++)
+        {
+            j=i+1;
+            k=n-1;
+            while(j<n && k>i && j<k)
+            {
+                if((nums[i]+nums[j]+nums[k])==0)
+                {
+                    flag=0;
+                    for(m=0; m<v.size(); m++)
+                    {
+                        if(v[m][0]==nums[i] && v[m][1]==nums[j] && v[m][2]==nums[k])
+                        {
+                            flag=1;
+                            break;
+                        }
+                        else if(v[m][0]==nums[i] && v[m][2]==nums[j] && v[m][1]==nums[k])
+                        {
+                            flag=1;
+                            break;
+                        }
+                        else if(v[m][1]==nums[i] && v[m][2]==nums[j] && v[m][0]==nums[k])
+                        {
+                            flag=1;
+                            break;
+                        }
+                        else if(v[m][1]==nums[i] && v[m][0]==nums[j] && v[m][2]==nums[k])
+                        {
+                            flag=1;
+                            break;
+                        }
+                        else if(v[m][2]==nums[i] && v[m][0]==nums[j] && v[m][1]==nums[k])
+                        {
+                            flag=1;
+                            break;
+                        }
+                        else if(v[m][2]==nums[i] && v[m][1]==nums[j] && v[m][0]==nums[k])
+                        {
+                            flag=1;
+                            break;
+                        }
+                    }
+                    if(flag==0)
+                    {
+                        v1.push_back(nums[i]);
+                        v1.push_back(nums[j]);
+                        v1.push_back(nums[k]);
+                        v.push_back(v1);
+                    }
+                    v1.clear();
+                    j++;
+                    k--;
+                }
+                else if((nums[i]+nums[j]+nums[k])>0)
+                    k--;
+                else
+                    j++;
+            }
+        }
+        return v;
+    }
+};
