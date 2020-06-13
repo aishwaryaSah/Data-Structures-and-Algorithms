@@ -1,0 +1,71 @@
+class Solution {
+public:
+    
+    bool isInLimit(int n, int m, int i, int j)
+    {
+        if(i>=0 && i<n && j>=0 && j<m)
+            return true;
+        return false;
+    }
+    
+    bool isZeroMatrix(vector<vector<int>>& mat, int n, int m)
+    {
+        for(int i=0; i<n; i++)
+        {
+            for(int j=0; j<m; j++)
+            {
+                if(mat[i][j]!=0)
+                    return false;
+            }
+        }
+        return true;
+    }
+    
+    int minFlips(vector<vector<int>>& mat) {
+        int n=mat.size();
+        if(n==0)
+            return 0;
+        int m=mat[0].size();
+        if(m==0)
+            return 0;
+        
+        int mask=(1<<(n*m))-1;
+        
+        int i,j,k,min=INT_MAX,bitmask;
+        
+        for(i=0; i<=mask; i++)
+        {
+            vector<vector<int>>temp=mat;
+            int tempflips=0;
+            for(j=0; j<n; j++)
+            {
+                for(k=0; k<m; k++)
+                {
+                    bitmask=(j*m)+k;
+                    if(i&(1<<bitmask))
+                    {
+                        tempflips++;
+                        temp[j][k] = !temp[j][k];
+                        if(isInLimit(n,m, j+1,k))
+                            temp[j+1][k]=!temp[j+1][k];
+                        if(isInLimit(n,m, j-1,k))
+                            temp[j-1][k]=!temp[j-1][k];
+                        if(isInLimit(n,m, j,k+1))
+                            temp[j][k+1]=!temp[j][k+1];
+                        if(isInLimit(n,m, j,k-1))
+                            temp[j][k-1]=!temp[j][k-1];
+                    }
+                }
+            }
+            if(isZeroMatrix(temp,n,m))
+            {
+                if(tempflips<min)
+                    min=tempflips;
+            }
+        }
+        if(min==INT_MAX)
+            return -1;
+        else
+            return min;
+    }
+};

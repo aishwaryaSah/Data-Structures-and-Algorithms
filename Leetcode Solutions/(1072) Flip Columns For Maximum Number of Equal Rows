@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int maxEqualRowsAfterFlips(vector<vector<int>>& matrix) {
+        map<string,int>m;
+        int i,j,max=-1;
+        for(i=0; i<matrix.size(); i++)
+        { 
+            string zero(matrix[0].size(),'0');
+            string one(matrix[0].size(),'0');
+            for(j=0; j<matrix[0].size(); j++)
+            {
+                if(matrix[i][j]==0)
+                    zero[j]='1';
+                else
+                    one[j]='1';
+            }
+            // cout<<zero<<" "<<one<<endl;
+            m[zero]++;
+            m[one]++;
+        }
+        for(auto x: m)
+        {
+            if(x.second>max)
+                max=x.second;
+        }
+        return max;
+    }
+};

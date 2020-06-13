@@ -1,0 +1,62 @@
+class Solution {
+public:
+    vector<string> subdomainVisits(vector<string>& cp) {
+        map<string,int>m;
+        vector<string>ans;
+        vector<string>v;
+        int rev,i,j,num=0;
+        string str,s;
+        for(i=0; i<cp.size(); i++)
+        {
+            rev=0;
+            num=-1;
+            for(j=0; j<cp[i].size(); j++)
+            {
+                if(cp[i][j]==' ')
+                {
+                    num=rev;
+                    rev=0;
+                }
+                else if(num==-1)
+                {
+                    rev=rev*10+(cp[i][j]-'0');
+                }
+                else
+                {
+                    if(cp[i][j]=='.')
+                    {
+                        v.push_back(str);
+                        str="";
+                    }
+                    else
+                    {
+                        str=str+cp[i][j];
+                    }
+                }
+            }
+            v.push_back(str);
+            str="";
+            s="";
+            reverse(v.begin(),v.end());
+            for(j=0; j<v.size(); j++)
+            {
+                // cout<<v[j]<<" ";
+                s=v[j]+s;
+                if(m.find(s)==m.end())
+                    m[s]=num;
+                else
+                    m[s]=m[s]+num;
+                s="."+s;
+            }
+            // cout<<endl;
+            v.clear();
+        }
+        for(auto x: m)
+        {
+            // cout<<x.first<<" "<<x.second<<endl;
+            s=to_string(x.second)+' '+x.first;
+            ans.push_back(s);
+        }
+        return ans;
+    }
+};

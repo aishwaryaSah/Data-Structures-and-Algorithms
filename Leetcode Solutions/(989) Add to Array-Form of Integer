@@ -1,0 +1,64 @@
+class Solution {
+public:
+    vector<int> addToArrayForm(vector<int>& A, int K) 
+    {
+        int n,d,s,carry;
+        n=A.size()-1;
+        carry=0;
+        while(K>0)
+        {
+            d=K%10;
+            if(n>=0)
+            {
+                s=A[n]+d+carry;
+                if(s>9)
+                {
+                    d=s/10;
+                    s=s%10;
+                    carry=d;
+                }
+                else
+                    carry=0;
+                A[n]=s; 
+            }
+            else
+            {
+                s=d+carry;
+                if(s>9)
+                {
+                    d=s/10;
+                    s=s%10;
+                    carry=d;
+                }
+                else
+                    carry=0;
+                A.insert(A.begin(),s); 
+            }
+            K=K/10;
+            n--;
+        }
+        while(carry!=0 || n>=0)
+        {
+            if(n<0)
+            {
+                A.insert(A.begin(),(carry));  
+                carry=0;
+            }
+            else
+            {
+                s=A[n]+carry;
+                if(s>9)
+                {
+                    d=s/10;
+                    s=s%10;
+                    carry=d;
+                }
+                else
+                    carry=0;
+                A[n]=s; 
+                n--;
+            }
+        }
+        return A;
+    }
+};

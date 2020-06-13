@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& A) {
+        map<int,int>m;
+        map<int,int>m2;
+        int i;
+        for(i=0; i<A.size(); i++)
+        {
+            if(m.find(A[i])==m.end())
+                m[A[i]]=1;
+            else
+                m[A[i]]++;
+        }
+        for(auto x: m)
+        {
+            if(m2.find(x.second)==m2.end())
+                m2[x.second]=1;
+            else
+                return false;
+        }
+        return true;
+    }
+};

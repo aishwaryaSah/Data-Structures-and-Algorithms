@@ -1,0 +1,37 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    string result="~";//ascii highest value
+    string smallestFromLeaf(TreeNode* root) 
+    {
+        if(root==NULL)
+            return "";
+        lexSmallUtil(root,"");
+        return result;
+    }
+    void lexSmallUtil(TreeNode* d, string s)
+    {
+        if(d==NULL)
+        {
+            return;
+        }
+        s=((char)(d->val+'a'))+s;
+        if(d->left==NULL && d->right==NULL)
+        {
+            if(s.compare(result)<0)
+            {
+                result=s;
+            }
+        }
+        lexSmallUtil(d->left,s);
+        lexSmallUtil(d->right,s);
+    }
+};

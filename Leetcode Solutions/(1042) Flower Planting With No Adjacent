@@ -1,0 +1,55 @@
+class Solution {
+public:
+    bool apply(vector<vector<int>> &adj, vector<int>&colours, int u, int N, int p)
+    {
+        int c;
+        bool safe;
+        for(c=1; c<=4; c++)
+        {
+            if(c!=p)
+            {
+                colours[u]=c;
+                safe=true;
+                for(auto v: adj[u])
+                {
+                    if(colours[v]==c)
+                    {
+                        safe=false;
+                        break;
+                    }
+                    if(colours[v]==-1 && !apply(adj,colours,v,N,c))
+                    {
+                        safe=false;
+                        break;
+                    }
+                }
+                if(safe==true)
+                {
+                    break;
+                }
+                colours[u]=-1;
+            }
+        }
+        return colours[u]!=-1;
+    }
+    
+    vector<int> gardenNoAdj(int N, vector<vector<int>>& paths) 
+    {
+        vector<vector<int>> adj(N);
+        int i;
+        for(i=0; i<paths.size(); i++)
+        {
+            adj[paths[i][0]-1].push_back(paths[i][1]-1);
+            adj[paths[i][1]-1].push_back(paths[i][0]-1);
+        }
+        vector<int> colours(N,-1);
+        for(i=0; i<N; i++)
+        {
+            if(colours[i]==-1)
+            {
+                apply(adj,colours,i,N,-1);
+            }
+        }
+        return colours;
+    }
+};

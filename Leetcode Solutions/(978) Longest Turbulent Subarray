@@ -1,0 +1,65 @@
+class Solution {
+public:
+    int maxTurbulenceSize(vector<int>& A) 
+    {
+        int l=A.size();
+        int p=0,i,j,max=1,maxi=0;
+        if(l<=1)
+            return l;
+        if(l==2 && A[0]!=A[1])
+            return 2;
+        else if(l==2 && A[0]==A[1])
+            return 1;
+        if(A[0]>A[1])
+            p=1;
+        else 
+            p=-1;
+        i=0;
+        j=1;
+        while(i<(l-1) && j<(l-1))
+        {
+//            cout<<i<<" "<<j<<" "<<p<<endl;
+            if(p==1 && ((A[j]>A[j+1] && j%2==0)||(A[j]<A[j+1] && j%2!=0)))
+            {
+                j++;
+                max++;
+            }
+            else if(p==-1 && ((A[j]>A[j+1] && j%2!=0)||(A[j]<A[j+1] && j%2==0)))
+            {
+                j++;
+                max++;
+            }
+            else
+            {
+//                cout<<"a"<<endl;
+                i=j;
+                j++;
+                if(max>maxi)
+                    maxi=max;
+                max=1;
+                if(A[i]==A[j])
+                {
+                    i++;
+                    j++;
+                }
+                if(i%2==0)
+                {
+                    if(A[i]>A[j])
+                        p=1;
+                    else 
+                        p=-1;
+                }
+                else
+                {
+                    if(A[i]>A[j])
+                        p=-1;
+                    else 
+                        p=1;
+                }
+            }
+        }
+                if(max>maxi)
+                    maxi=max;
+        return maxi+1;
+    }
+};

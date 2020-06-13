@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int findJudge(int N, vector<vector<int>>& trust) {
+        vector<vector<int>>adj1(N);
+        vector<vector<int>>adj2(N);
+        int i;
+        vector<int>v;
+        for(i=0; i<trust.size(); i++)
+        {
+            adj1[trust[i][0]-1].push_back(trust[i][1]-1);
+            adj2[trust[i][1]-1].push_back(trust[i][0]-1);
+        }
+        for(i=0; i<N; i++)
+        {
+            if(adj1[i].size()==0 && adj2[i].size()==(N-1))
+            {
+                v.push_back(i);
+            }
+        }
+        if(v.size()==1)
+            return v[0]+1;
+        else 
+            return -1;
+    }
+};

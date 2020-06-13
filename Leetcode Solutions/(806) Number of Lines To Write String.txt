@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> numberOfLines(vector<int>& widths, string S) 
+    {
+        int i,s=0,row=1,k;
+        vector<int>v;
+        for(i=0; i<(S.size()); i++)
+        {
+            k=(widths[S[i]-97]);
+            if((s+k)>100)
+            {
+                row++;
+                s=k;
+            }
+            else
+            {
+                s=s+k;
+            }
+        }
+        v.push_back(row);
+        v.push_back(s);
+        return v;
+    }
+};

@@ -1,0 +1,36 @@
+class Solution {
+public:
+    bool checkStraightLine(vector<vector<int>>& cood) {
+        float d=0.0,d1,i;
+        if((cood[1][0]-cood[0][0])!=0)
+        {
+            d=((cood[1][1]-cood[0][1])/((cood[1][0]-cood[0][0])*1.0));
+            // cout<<cood[1][0]<<" "<<cood[0][0]<<" "<<cood[1][1]<<" "<<cood[0][1]<<d<<endl;
+            for(i=2; i<cood.size(); i++)
+            {
+                if((cood[i][0]-cood[i-1][0])!=0)
+                {
+                    d1=((cood[i][1]-cood[i-1][1])/((cood[i][0]-cood[i-1][0])*1.0));
+                }
+                else
+                {
+                    return false;
+                }
+                if(d!=d1)
+                    return false;
+                // cout<<d<<" "<<d1;
+            }
+        }
+        else
+        {
+            for(i=2; i<cood.size(); i++)
+            {
+                if(cood[i][0]!=cood[i-1][0])
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+};

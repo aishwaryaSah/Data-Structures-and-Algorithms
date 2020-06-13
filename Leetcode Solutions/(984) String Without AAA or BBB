@@ -1,0 +1,53 @@
+class Solution {
+public:
+    string strWithout3a3b(int A, int B) 
+    {
+        string s="";
+        int t=0;
+        int n=A+B;
+        while(t<n)
+        {
+            if(t<2)
+            {
+                if(B>A)
+                {
+                    s=s+'b';
+                    B--;
+                }
+                else
+                {
+                    s=s+'a';
+                    A--;
+                }
+            }
+            else if(s[t-1]==s[t-2])
+            {
+                if(s[t-1]=='a')
+                {
+                    s=s+'b';
+                    B--;
+                }
+                else
+                {
+                    s=s+'a';
+                    A--;
+                }
+            }
+            else
+            {
+                if(B>A)
+                {
+                    s=s+'b';
+                    B--;
+                }
+                else
+                {
+                    s=s+'a';
+                    A--;
+                }
+            }
+            t++;
+        }
+        return s;
+    }
+};

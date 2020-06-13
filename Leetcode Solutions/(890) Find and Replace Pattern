@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<string> findAndReplacePattern(vector<string>& words, string pattern) 
+    {
+        vector<string>v;
+        map<char,char>m1;
+        map<char,char>m2;
+        int i,j,flag;
+        for(i=0; i<words.size(); i++)
+        {
+            flag=0;
+            for(j=0; j<pattern.size(); j++)
+            {
+                if((m1.find(words[i][j])==m1.end()) &&(m2.find(pattern[j])==m2.end()))
+                {
+                    m1[words[i][j]]=pattern[j];
+                    m2[pattern[j]]=words[i][j];
+                }
+                else
+                {
+                    if((m1.find(words[i][j])==m1.end())||(m2.find(pattern[j])==m2.end()))
+                    {
+                        flag=1;
+                        break;
+                    }
+                    else if((m1[words[i][j]]!=pattern[j])||(m2[pattern[j]]!=words[i][j]))
+                    {
+                        flag=1;
+                        break;
+                    }
+                }
+            }
+            if(flag==0)
+            {
+                v.push_back(words[i]);
+            }
+            m1.clear();
+            m2.clear();
+        }
+        return v;
+    }
+};

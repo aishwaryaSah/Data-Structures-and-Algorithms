@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int longestArithSeqLength(vector<int>& A) {
+        vector<int>v(A.size(),INT_MIN);
+        vector<vector<int> >dp(A.size(),v);
+        int i,j,k,t,c=0,max=-1;
+        for(i=0; i<A.size(); i++)
+        {
+            for(j=0; j<A.size(); j++)
+            {
+                if(j>i)
+                dp[i][j]=A[i]-A[j];
+                // cout<<dp[i][j]<<" ";
+            }
+            cout<<endl;
+        }
+        int comp;
+        for(i=0; i<A.size(); i++)
+        {
+            for(j=0; j<A.size(); j++)
+            {
+                comp=dp[i][j];
+                t=j;
+                c=0;
+                if(dp[i][j]==INT_MIN)
+                    continue;
+                for(k=0; k<A.size(); k++)
+                {
+                    if(comp==dp[t][k])
+                    {
+                        // cout<<t<<" "<<k<<endl;
+                        t=k;
+                        k=0;
+                        c++;
+                    }
+                }
+                if(c>max)
+                    max=c;
+            }
+        }
+        return max+2;
+    }
+};

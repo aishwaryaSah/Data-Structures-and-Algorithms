@@ -1,0 +1,38 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isUnivalTree(TreeNode* root) 
+    {
+        if(root==NULL)
+            return false;
+        return isUniUtil(root,root->val);
+    }
+    bool isUniUtil(TreeNode* root, int val)
+    {
+        if(root==NULL)
+            return 1;
+        else
+        {
+            if(isUniUtil(root->left,val)==0)
+            {
+                return 0;
+            }
+            if(isUniUtil(root->right,val)==0)
+            {
+                return 0;
+            }
+            if(root->val==val)
+                return 1;
+            else
+                return 0;
+        }
+    }
+};

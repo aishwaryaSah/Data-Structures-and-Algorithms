@@ -1,0 +1,38 @@
+class Solution {
+public:
+    string removeOuterParentheses(string S) 
+    {
+        int i,t=0;
+        string str="";
+        stack<char> brace_stack;
+        for(i=0; i<S.size(); i++)
+        {
+            if(brace_stack.empty())
+            {
+                brace_stack.push(S[i]);
+                t=1;
+            }
+            else
+            {
+                if(brace_stack.top()=='(' && S[i]==')' && t==1)
+                {
+                    brace_stack.pop();
+                    t=0;
+                }
+                else if(brace_stack.top()=='(' && S[i]==')')
+                {
+                    str=str+S[i];
+                    brace_stack.pop();
+                    t--;
+                }
+                else if(S[i]=='(' || S[i]==')')
+                {
+                    str=str+S[i];
+                    brace_stack.push(S[i]);
+                    t++;
+                }
+            }
+        }
+        return str;
+    }
+};

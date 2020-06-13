@@ -1,0 +1,34 @@
+1.
+class Solution {
+public:
+    bool stoneGame(vector<int>& piles) {
+        sort(piles.begin(),piles.end());
+        int i,s1=0,s2=0,flag=1,n=piles.size();
+        for(i=n-1; i>=0; i--)
+        {
+            if(flag==1)
+            {
+                s1=s1+piles[i];
+                flag=0;
+            }
+            else
+            {
+                flag=1;
+                s2=s2+piles[i];
+            }
+        }
+        if(s1>s2)
+            return true;
+        else
+            return false;
+    }
+};
+
+2.
+class Solution {
+public:
+    bool stoneGame(vector<int>& p) 
+    {
+        return true;
+    }
+};

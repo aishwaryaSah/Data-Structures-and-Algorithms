@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int longestCommonSubsequence(string text1, string text2) {
+        int n,m,i,j;
+        n=text1.size();
+        m=text2.size();
+        vector<int>v(n+1,0);
+        vector<vector<int> >dp(m+1,v);
+        for(i=1; i<=m; i++)
+        {
+            for(j=1; j<=n; j++)
+            {
+                if(text1[j-1]==text2[i-1])
+                {
+                    dp[i][j]=dp[i-1][j-1]+1;
+                }
+                else 
+                {
+                    dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+                }
+            }
+        }
+        return dp[m][n];
+    }
+};

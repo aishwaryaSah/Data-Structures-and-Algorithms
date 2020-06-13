@@ -1,0 +1,43 @@
+class Solution {
+public:
+    vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {
+        // vector<int> hash(26,0);
+        map<int,int> hash;
+        int i,j,t;
+        vector<int>v;
+        for(i=0; i<arr1.size(); i++)
+        {
+            if(hash.find(arr1[i])==hash.end())
+            {
+                hash[arr1[i]]=1;
+            }
+            else
+            {
+                hash[arr1[i]]++;
+            }
+        }
+        for(i=0; i<arr2.size(); i++)
+        {
+            if(hash.find(arr2[i])!=hash.end())
+            {
+                for(j=0; j<hash[arr2[i]]; j++)
+                {
+                    v.push_back(arr2[i]);
+                }
+                hash[arr2[i]]=0;
+            }
+        }
+        for (auto k : hash)
+        {
+            if(k.second!=0)
+            {
+                t=k.second;
+                while(t--)
+                {
+                    v.push_back(k.first);
+                }
+            }
+        }
+        return v;
+    }
+};

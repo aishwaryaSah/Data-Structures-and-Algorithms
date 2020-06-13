@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int maxNumberOfApples(vector<int>& arr) {
+        sort(arr.begin(),arr.end());
+        int i,s=0;
+        for(i=0; i<arr.size(); i++)
+        {
+            if((s+arr[i])>5000)
+                break;
+            else
+               s=s+arr[i];
+        }
+        return i;
+    }
+};

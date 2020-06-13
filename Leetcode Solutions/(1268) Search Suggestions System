@@ -1,0 +1,92 @@
+class Solution {
+public:
+    int ALPHABET_SIZE=26;
+    
+    struct TrieNode
+    {
+     struct TrieNode *child[26];
+     bool isEndOfWord;
+    };
+    
+    struct TrieNode *getNode(void) 
+    { 
+        struct TrieNode *temp =  new TrieNode; 
+        temp->isEndOfWord = false; 
+        for (int i = 0; i < 26; i++) 
+            temp->child[i] = NULL; 
+        return temp; 
+    } 
+    
+    void insert(struct TrieNode *root, string key) 
+    { 
+        struct TrieNode *pCrawl = root; 
+        for (int i = 0; i < key.length(); i++) 
+        { 
+            int index = key[i] - 'a'; 
+            if (!pCrawl->child[index]) 
+                pCrawl->child[index] = getNode(); 
+
+            pCrawl = pCrawl->child[index]; 
+        } 
+        pCrawl->isEndOfWord = true; 
+    } 
+    
+    vector<string>findnextkin(struct TrieNode *root,string key, vector<string> keys)
+    {
+        vector<string>v;
+        int i;
+        string d;
+        for(i=0; i<keys.size(); i++)
+        {
+            if(keys[i].size()>=key.size())
+            {
+                d=keys[i].substr(0,key.size());
+                if(d.compare(key)==0)
+                    v.push_back(keys[i]);
+                if(v.size()==3)
+                    break;
+            }
+        }
+        return v;
+    }
+    
+    vector<string> search(struct TrieNode *root, string key, vector<string> products) 
+    { 
+        struct TrieNode *pCrawl = root; 
+        struct TrieNode*parent=root;
+        vector<string>v;
+        for (int i = 0; i < key.length(); i++) 
+        { 
+            int index = key[i] - 'a'; 
+            if (!pCrawl->child[index])
+            {
+                return v;
+            }
+                // return false; 
+            parent=pCrawl;
+            pCrawl = pCrawl->child[index]; 
+        } 
+        if(pCrawl==NULL)
+            return v;
+        return findnextkin(pCrawl, key, products);
+    } 
+    
+    vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
+        struct TrieNode *root = getNode(); 
+        int i;
+        for (int i = 0; i < products.size(); i++) 
+            insert(root, products[i]); 
+        vector<string>k;
+        vector<vector<string> >ans;
+        string str="";
+        sort(products.begin(),products.end());
+        for(i=0; i<searchWord.size(); i++)
+        {
+            k.clear();
+            str=str+searchWord[i];
+            k=search(root, str, products);
+            ans.push_back(k);
+        }
+        return ans;
+    }
+};

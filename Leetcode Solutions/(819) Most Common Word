@@ -1,0 +1,52 @@
+class Solution {
+public:
+    string mostCommonWord(string para, vector<string>& banned) {
+        map<string,int>m;
+        string str="",word="";
+        int i,max=INT_MIN;
+        para=para+' ';
+        for(i=0; i<para.size(); i++)
+        {
+            if(para[i]==' ')
+            {
+                if(str=="")
+                    continue;
+                if(m.find(str)==m.end())
+                    m[str]=1;
+                else
+                    m[str]++;
+                str="";
+            }
+            else if((para[i]>='A' && para[i]<='Z')||(para[i]>='a' && para[i]<='z'))
+            {
+                if(para[i]>=65 && para[i]<=90)
+                    para[i]=para[i]+' ';
+                str=str+para[i];
+            }
+            else
+            {
+                if(str=="")
+                    continue;
+                if(m.find(str)==m.end())
+                    m[str]=1;
+                else
+                    m[str]++;
+                str="";
+            }
+        }
+        for(i=0; i<banned.size(); i++)
+        {
+            if(m.find(banned[i])!=m.end())
+                m.erase(banned[i]);
+        }
+        for(auto x: m)
+        {
+            if(x.second>max)
+            {
+                max=x.second;
+                word=x.first;
+            }
+        }
+        return word;
+    }
+};

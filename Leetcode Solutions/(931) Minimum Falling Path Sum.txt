@@ -1,0 +1,82 @@
+1.
+class Solution {
+public:
+    int minFallingPathSum(vector<vector<int>>& A) {
+        int i,j,mina,less,more,m;
+        int n=A.size();
+        if(n>0)
+            m=A[0].size();
+        else
+            return 0;
+        vector<int>v(m,0);
+        vector<vector<int> >dp(n,v);
+        for(i=0; i<n; i++)
+        {
+            for(j=0; j<m; j++)
+            {
+                if(i==0)
+                    dp[i][j]=A[i][j];
+                else
+                {
+                    if((j-1)>=0)
+                        less=dp[i-1][j-1];
+                    else
+                        less=INT_MAX;
+                    if((j+1)<m)
+                        more=dp[i-1][j+1];
+                    else
+                        more=INT_MAX;
+                    dp[i][j]=min(dp[i-1][j],min(less,more))+A[i][j];
+                }
+            }
+        }
+        mina=INT_MAX;;
+        for(i=0; i<m; i++)
+        {
+            if(dp[n-1][i]<mina)
+                mina=dp[n-1][i];
+        }
+        return mina;
+    }
+};
+
+2.
+class Solution {
+public:
+    int minFallingPathSum(vector<vector<int>>& A) 
+    {
+        int i,j,d1,d2,d3,min=999;
+        int n=A.size();
+        int m=A[i].size();
+        for(i=1; i<n; i++)
+        {
+            d1=0;
+            d2=0;
+            d3=0;
+            for(j=0; j<m; j++)
+            {
+                if((j-1)>=0)
+                {
+                    d1=A[i-1][j-1]+A[i][j];
+                }
+                if((j+1)<m)
+                {
+                    d2=A[i-1][j+1]+A[i][j];
+                }
+                d3=A[i-1][j]+A[i][j];
+                if(d1<=d2 && d1<=d3 && d1!=0)
+                    A[i][j]=d1;
+                else if(d2<=d1 && d2<=d3 && d2!=0)
+                    A[i][j]=d2;
+                else if(d3!=0)
+                    A[i][j]=d3;
+            }
+        }
+        for(i=0; i<m; i++)
+        {
+            if(A[n-1][i]<min)
+                min=A[n-1][i];
+        }
+        return min;
+    }
+};

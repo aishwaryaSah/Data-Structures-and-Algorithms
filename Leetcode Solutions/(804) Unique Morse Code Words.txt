@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int uniqueMorseRepresentations(vector<string>& w) 
+    {
+        vector<string> k;
+        int i,j,c=0,m,flag=0;
+        string s;
+        string a[]={".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+        for(i=0; i<(w.size()); i++)
+        {
+            flag=0;
+            s="";
+            for(j=0; j<(w[i].size()); j++)
+            {
+                    s=s+a[w[i][j]-97];
+            }
+            for(j=0; j<(k.size()); j++)
+            {
+                if(k[j]==s)
+                {
+                    flag=1;
+                    break;
+                }
+            }
+            if(flag==0)
+            {
+                    c++;
+                    k.push_back(s);
+            }
+                if(k.empty())
+                {
+                    c++;
+                    k.push_back(s);
+               }
+        }
+        return c;
+    }
+};

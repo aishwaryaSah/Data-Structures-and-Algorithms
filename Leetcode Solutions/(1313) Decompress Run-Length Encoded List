@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> decompressRLElist(vector<int>& nums) {
+        vector<int>ans;
+        int i,j;
+        for(i=0; i<nums.size(); i=i+2){
+            for(j=0; j<nums[i]; j++)
+                ans.push_back(nums[i+1]);
+        }
+        return ans;
+    }
+};
+
+// o(n2), o(n)
+//3 min
+// 97% 100%

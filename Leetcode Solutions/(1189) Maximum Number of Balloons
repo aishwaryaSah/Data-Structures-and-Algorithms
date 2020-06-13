@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int maxNumberOfBalloons(string text) {
+        vector<int> hash(26,0);
+        int i,c=0,flag=0;
+        string s;
+        for(i=0; i<text.length(); i++)
+        {
+            hash[text[i]-'a']++;
+        }
+        while(flag==0)
+        {
+            s="balloon";
+            for(i=0; i<s.length(); i++)
+            {
+                if(hash[s[i]-'a']>0)
+                {
+                    hash[s[i]-'a']--;
+                }
+                else
+                {
+                    flag=1;
+                }
+            }
+            if(flag==0)
+            {
+                c++;
+            }
+        }
+        return c;
+    }
+};

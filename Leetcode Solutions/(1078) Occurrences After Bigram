@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<string> findOcurrences(string text, string first, string second) 
+    {
+        vector<string>v;
+        string str;
+        int i,flag=0;
+        text=text+" ";
+        cout<<text;
+        for(i=0; i<text.size(); i++)
+        {
+            if(text[i]==' ')
+            {
+                
+                if(flag==2)
+                {
+                    v.push_back(str);
+                    if(second.compare(first)==0 && str.compare(second)==0)
+                        flag=2;
+                    else if(str.compare(first)==0)
+                        flag=1;
+                    else
+                        flag=0;
+                }
+                else if(flag==1)
+                {
+                    if(str.compare(second)==0)
+                        flag=2;
+                    else if(str.compare(first)==0)
+                        flag=1;
+                    else
+                        flag=0;
+                }
+                else
+                {
+                    if(str.compare(first)==0)
+                        flag=1;
+                }
+                str="";
+            }
+            else
+            {
+                str=str+text[i];
+            }
+        }
+        return v;
+    }
+};
