@@ -1,0 +1,83 @@
+class Solution {
+public:
+    string shortestCompletingWord(string lp, vector<string>& w) 
+    {
+        map<char,int> m1;
+        map<char,int> m2;
+        int i,flag,j,min=INT_MAX;
+        string pos;
+        
+        for(i=0; i<lp.size(); i++)
+        {
+            if(lp[i]>='a' && lp[i]<='z' )
+            {
+                if(m1.find(lp[i])==m1.end())
+                    m1[lp[i]]=1;
+                else
+                    m1[lp[i]]++;
+
+            }
+            else if(lp[i]>='A' && lp[i]<='X' )
+            {
+                lp[i]=lp[i]+' ';
+                if(m1.find(lp[i])==m1.end())
+                    m1[lp[i]]=1;
+                else
+                    m1[lp[i]]++;
+
+            }
+        }
+        // cout<<m1.size();
+        for(i=0; i<w.size(); i++)
+        {
+            for(j=0; j<w[i].size(); j++)
+            {
+                if(w[i][j]>='a' && w[i][j]<='z' )
+                {
+                    if(m2.find(w[i][j])==m2.end())
+                        m2[w[i][j]]=1;
+                    else
+                        m2[w[i][j]]++;
+
+                }
+                else if(w[i][j]>='A' && w[i][j]<='X' )
+                {
+                    w[i][j]=w[i][j]+' ';
+                    if(m2.find(w[i][j])==m2.end())
+                        m2[w[i][j]]=1;
+                    else
+                        m2[w[i][j]]++;
+                }
+            }
+            flag=0;
+            for(auto x: m1)
+            {
+                if(m2.find(x.first)==m2.end())
+                {
+                    flag=1;
+                    break;
+                }
+                else
+                {
+                    if(m2[x.first]<x.second)
+                    {
+                        flag=1;
+                        break;
+                    }
+                }
+            }
+            m2.clear();
+            if(flag==1)
+                continue;
+            else
+            {
+                if(w[i].size()<min)
+                {
+                    min=w[i].size();
+                    pos=w[i];
+                }
+            }
+        }
+        return pos;
+    }
+};

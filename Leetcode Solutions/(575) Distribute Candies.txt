@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int distributeCandies(vector<int>& candies) 
+    {
+        int l,i,j,r=0;
+        l=candies.size();
+        sort(candies.begin(),candies.end());
+        for(i=0; i<l; i++)
+        {
+            j=i;
+            r++;
+            while(candies[i]==candies[j])
+            {
+                j++;
+            }
+            i=j-1;
+        }
+        if(r>(l/2))
+            return (l/2);
+        else
+            return r;
+    }
+};

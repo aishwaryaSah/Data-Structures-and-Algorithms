@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<int> findClosestElements(vector<int>& a, int k, int x) {
+        int i,j,min=100000,pos;
+        vector<int>v;
+        for(i=0; i<a.size(); i++)
+        {
+            if(abs(a[i]-x)<min)
+            {
+                min=abs(a[i]-x);
+                pos=i;
+            }
+        }
+        i=pos-1;
+        j=pos+1;
+        v.push_back(a[pos]);
+        int t=1;
+        while(i<j && t<k &&(i>=0 || j<=(a.size()-1)))
+        {
+            t++;
+            if(i>=0 && j<=(a.size()-1))
+            {
+                if((abs(a[i]-x))<=(abs(a[j]-x)))
+                {
+                    v.push_back(a[i]);
+                    i--;
+                }
+                else if((abs(a[i]-x))>(abs(a[j]-x)))
+                {
+                    v.push_back(a[j]);
+                    j++;
+                }
+            }
+            else if(i>=0)
+            {
+                v.push_back(a[i]);
+                    i--;
+            }
+            else if(j<=(a.size()-1))
+            {
+                v.push_back(a[j]);
+                    j++;
+            }
+        }
+        sort(v.begin(),v.end());
+        return v; 
+    }
+};

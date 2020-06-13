@@ -1,0 +1,109 @@
+1.
+class Solution {
+public:
+    
+    class node
+    {
+        public:
+        int i;
+        int j;
+    };
+    
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) 
+    {
+        node* x=new node();
+        vector<int>v(image[0].size(),0);
+        vector<vector<int> >visited(image.size(),v);
+        x->i=sr;
+        x->j=sc;
+        queue<node*>q;
+        q.push(x);
+        int oldcolor=image[sr][sc];
+        node* d;
+        while(!q.empty())
+        {
+            d=q.front();
+            q.pop();
+            if((d->i>=0 && d->i<image.size()) && (d->j>=0 && d->j<image[0].size()) &&visited[d->i][d->j]==0 && image[d->i][d->j]==oldcolor)
+            {
+                // cout<<"j";
+                visited[d->i][d->j]=1;
+                image[d->i][d->j]=newColor;
+                node* p1=new node();
+                p1->i=d->i +1;
+                p1->j=d->j;
+                q.push(p1);
+                node* p2=new node();
+                p2->i=d->i -1;
+                p2->j=d->j;
+                q.push(p2);
+                node* p3=new node();
+                p3->i=d->i;
+                p3->j=d->j +1;
+                q.push(p3);
+                node* p4=new node();
+                p4->i=d->i;
+                p4->j=d->j -1;
+                q.push(p4);
+            }
+        }
+        return image;
+    }
+};
+
+2.
+class Solution {
+public:
+    struct node
+    {
+        int x,y;
+    };
+    
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) 
+    {
+        int c,r;
+        c=image[0].size();
+        r=image.size();
+        node d;
+        node f;
+        d.x=sr;
+        d.y=sc;
+        queue<node> q;
+        q.push(d);
+        int k=image[sr][sc];
+        while(!q.empty())
+        {
+            d=q.front();
+            q.pop();
+            if(image[d.x][d.y]==k && image[d.x][d.y]!=newColor)
+            {
+                image[d.x][d.y]=newColor;
+                if((d.x-1)>=0)
+                {
+                    f.x=d.x-1;
+                    f.y=d.y;
+                    q.push(f);
+                }
+                if((d.x+1)<r)
+                {
+                    f.x=d.x+1;
+                    f.y=d.y;
+                    q.push(f);
+                }
+                if((d.y-1)>=0)
+                {
+                    f.x=d.x;
+                    f.y=d.y-1;
+                    q.push(f);
+                }
+                if((d.y+1)<c)
+                {
+                    f.x=d.x;
+                    f.y=d.y+1;
+                    q.push(f);
+                }
+            }
+        }
+        return image;
+    }
+};

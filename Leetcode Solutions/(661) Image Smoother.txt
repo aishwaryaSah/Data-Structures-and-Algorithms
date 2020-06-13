@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<vector<int>> imageSmoother(vector<vector<int>>& m) 
+    {
+        vector<vector<int>>v;
+        vector<int>fin;
+        int i,j,x,y,a,b,c=0,s,d;
+        for(i=0; i<m.size(); i++)
+        {
+            fin.clear();
+            for(j=0; j<(m[0].size()); j++)
+            {
+                c=0;
+                s=0;
+                for(x=-1; x<=1; x++)
+                {
+                    for(y=-1; y<=1; y++)
+                    {
+                        a=i+x;
+                        b=j+y;
+                        if(a>=0 && a<(m.size()) && b>=0 && b<(m[0].size()))
+                        {
+                            c++;
+                            s=s+m[a][b];
+                        }
+                    }
+                }
+                
+                d=s/c;
+                //cout<<d<<" ";
+                fin.push_back(d);
+            }
+          //  cout<<endl;
+            v.push_back(fin);
+        }
+        return v;
+    }
+};

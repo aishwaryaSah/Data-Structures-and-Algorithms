@@ -1,0 +1,38 @@
+class Solution {
+public:
+    string customSortString(string S, string T) {
+        int i,val;
+        string s="";
+        char ch;
+        map<char,int>m;
+        for(i=0; i<T.size(); i++)
+        {
+            if(m.find(T[i])==m.end())
+                m[T[i]]=1;
+            else
+                m[T[i]]++;
+        }
+        for(i=0; i<S.size(); i++)
+        {
+            if(m.find(S[i])!=m.end())
+            {
+                while(m[S[i]]!=0)
+                {
+                    s=s+S[i];
+                    m[S[i]]--;
+                }
+            }
+        }
+        for(auto x: m)
+        {
+            ch=x.first;
+            val=x.second;
+            while(val)
+            {
+                s=s+ch;
+                val--;
+            }
+        }
+        return s;
+    }
+};

@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int findShortestSubArray(vector<int>& a) 
+    {
+        int l,i,max,degree=-1,pos=-1,val,min=9999999;
+        l=a.size();
+        max=-1;
+        for(i=0; i<l; i++)
+        {
+            if(a[i]>max)
+                max=a[i];
+        }
+        int hash[max+1]={0};
+        int ft[max+1]={-1};
+        int lst[max+1]={-1};
+        for(i=0; i<l; i++)
+        {
+            if(hash[a[i]]==0)
+            {
+                ft[a[i]]=i;
+                hash[a[i]]++;
+            }
+            else
+            {
+                hash[a[i]]++;
+                lst[a[i]]=i;
+            }
+        }
+        for(i=0; i<=max; i++)
+        {
+            if(hash[i]>degree)
+            {
+                degree=hash[i];
+            }
+        }
+        if(degree<2)
+            return degree;
+        for(i=0; i<=max; i++)
+        {
+            if((hash[i]==degree))
+            {
+                val=lst[i]-ft[i]+1;
+                if(val<min)
+                    min=val;
+            }
+        }
+        return min;
+    }
+};

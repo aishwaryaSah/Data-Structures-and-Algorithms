@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int numJewelsInStones(string J, string S) {
+        int hash[255]={0};
+        int i, s=0;
+        for(i=0; i<(S.size()); i++)
+        {
+            hash[S[i]]++;
+        }
+        for(i=0; i<(J.size()); i++)
+        {
+            if(hash[J[i]]>0)
+                s=s+hash[J[i]];
+        }
+        return s;
+    }
+};
+
+Solution 2:
+class Solution {
+public:
+    int numJewelsInStones(string J, string S) {
+        unordered_set <char> ch ; 
+        int i,c=0;
+        for(i=0; i<J.size(); i++)
+            ch.insert(J[i]);
+        for(i=0; i<S.size(); i++){
+            if(ch.find(S[i])!=ch.end())
+                c++;
+        }
+        return c;
+    }
+};
+
+// hashing : O(jlen+slen), O(jlen)
+// 4.5 min
+// 100% 100%

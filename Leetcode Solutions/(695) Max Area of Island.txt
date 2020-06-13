@@ -1,0 +1,76 @@
+class Solution {
+public:
+    
+    struct node
+    {
+        int x,y;
+    };
+    
+    int findout(vector<vector<int>>& grid, int x, int y)
+    {
+        node d,f;
+        int r,c,cc=0;
+        r=grid.size();
+        c=grid[0].size();
+        d.x=x;
+        d.y=y;
+        queue<node> q;
+        q.push(d);
+        grid[x][y]=0;
+        while(!q.empty())
+        {
+            cc++;
+            d=q.front();
+            q.pop();
+            if(((d.x-1)>=0)&&(grid[d.x-1][d.y]==1))
+            {
+                f.x=d.x-1;
+                f.y=d.y;
+                q.push(f);
+                grid[d.x-1][d.y]=0;
+            }
+            if(((d.x+1)<r)&&(grid[d.x+1][d.y]==1))
+            {
+                f.x=d.x+1;
+                f.y=d.y;
+                q.push(f);
+                grid[d.x+1][d.y]=0;
+            }
+            if(((d.y-1)>=0)&&(grid[d.x][d.y-1]==1))
+            {
+                f.x=d.x;
+                f.y=d.y-1;
+                q.push(f);
+                grid[d.x][d.y-1]=0;
+            }
+            if(((d.y+1)>=0)&&(grid[d.x][d.y+1]==1))
+            {
+                f.x=d.x;
+                f.y=d.y+1;
+                q.push(f);
+                grid[d.x][d.y+1]=0;
+            }
+        }
+        return cc;
+    }
+    
+    int maxAreaOfIsland(vector<vector<int>>& grid) 
+    {
+        int r,c,i,j,max=0,k;
+        r=grid.size();
+        c=grid[0].size();
+            for(i=0; i<r; i++)
+            {
+                for(j=0; j<c; j++)
+                {
+                    if(grid[i][j]==1)
+                    {
+                        k=findout(grid,i,j);
+                        if(k>max)
+                            max=k;
+                    }
+                }
+            }
+        return max;
+    }
+};

@@ -1,0 +1,39 @@
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    vector<Node*> children;
+
+    Node() {}
+
+    Node(int _val, vector<Node*> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+*/
+class Solution {
+public:
+    vector<int> preorder(Node* root) 
+    {
+        int i;
+        Node* d;
+        vector<int>v;
+        stack<Node*> que;
+        que.push(root);
+        while(!que.empty())
+        {
+            d=que.top();
+            que.pop();
+            if(d==NULL)
+                continue;
+            v.push_back(d->val);
+            for(i=(d->children).size()-1; i>=0; i--)
+            {
+                que.push(d->children[i]);
+            }
+        }
+        return v;
+    }
+};
